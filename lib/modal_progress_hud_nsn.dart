@@ -46,8 +46,9 @@ class ModalProgressHUD extends StatelessWidget {
     Key? key,
     required this.inAsyncCall,
     this.opacity = 0.3,
-    this.color = Colors.grey,
-    this.progressIndicator = const CircularProgressIndicator(),
+    this.color = const Color.fromRGBO(51, 51, 51, 1),
+    this.progressIndicator =
+        const CircularProgressIndicator(color: Color.fromRGBO(4, 75, 127, 1)),
     this.offset,
     this.dismissible = false,
     required this.child,
@@ -60,12 +61,52 @@ class ModalProgressHUD extends StatelessWidget {
 
     Widget layOutProgressIndicator;
     if (offset == null) {
-      layOutProgressIndicator = Center(child: progressIndicator);
+      layOutProgressIndicator = Center(
+        child: Container(
+          width: 200,
+          height: 60,
+          decoration: BoxDecoration(
+              border: Border.all(width: 1.0, color: Colors.white),
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(5.0))),
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                progressIndicator,
+                SizedBox(width: 16),
+                Text("Loading...",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        decoration: TextDecoration.none))
+              ]),
+        ),
+      );
     } else {
       layOutProgressIndicator = Positioned(
         left: offset!.dx,
         top: offset!.dy,
-        child: progressIndicator,
+        child: Container(
+          width: 200,
+          height: 60,
+          decoration: BoxDecoration(
+              border: Border.all(width: 1.0, color: Colors.white),
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(5.0))),
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                progressIndicator,
+                SizedBox(width: 16),
+                Text("Loading...",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        decoration: TextDecoration.none))
+              ]),
+        ),
       );
     }
 
