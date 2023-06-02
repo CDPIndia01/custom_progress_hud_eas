@@ -17,6 +17,10 @@ class ModalProgressHudNsn {
 /// HUD=Heads Up Display
 ///
 class ModalProgressHUD extends StatelessWidget {
+
+  /// A required bool to check dark mode or not
+  final bool isDarkMode;
+
   /// A required [bool]to toggle the loading animation.
   final bool inAsyncCall;
 
@@ -25,10 +29,6 @@ class ModalProgressHUD extends StatelessWidget {
 
   /// A [Color] object which is assigned to the loading barrier, defaults to grey
   final Color color;
-
-  /// A [Widget] which is shown at the center of the modal loading barrier,
-  /// defaults to the standard android spinny animation.
-  final Widget progressIndicator;
 
   /// An [Offset] object which is applied to the [progressIndicator] when specified.
   final Offset? offset;
@@ -45,10 +45,9 @@ class ModalProgressHUD extends StatelessWidget {
   const ModalProgressHUD({
     Key? key,
     required this.inAsyncCall,
+    this.isDarkMode = false,
     this.opacity = 0.3,
     this.color = const Color.fromRGBO(51, 51, 51, 1),
-    this.progressIndicator =
-        const CircularProgressIndicator(color: Color.fromRGBO(4, 75, 127, 1)),
     this.offset,
     this.dismissible = false,
     required this.child,
@@ -66,18 +65,18 @@ class ModalProgressHUD extends StatelessWidget {
           width: 200,
           height: 60,
           decoration: BoxDecoration(
-              border: Border.all(width: 1.0, color: Colors.white),
-              color: Colors.white,
+              border: Border.all(width: 1.0, color: isDarkMode ? Color.fromRGBO(1, 18, 28, 1) : Colors.white),
+              color: isDarkMode ? Color.fromRGBO(1, 18, 28, 1) : Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(5.0))),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                progressIndicator,
+                isDarkMode ? CircularProgressIndicator(color: Color.fromRGBO(237, 243, 247, 1)):CircularProgressIndicator(color: Color.fromRGBO(4, 75, 127, 1)),
                 SizedBox(width: 16),
                 Text("Loading...",
                     style: TextStyle(
-                        color: Colors.black,
+                        color: isDarkMode ? Colors.white : Colors.black,
                         fontSize: 16,
                         decoration: TextDecoration.none))
               ]),
@@ -87,22 +86,22 @@ class ModalProgressHUD extends StatelessWidget {
       layOutProgressIndicator = Positioned(
         left: offset!.dx,
         top: offset!.dy,
-        child: Container(
+        child:  Container(
           width: 200,
           height: 60,
           decoration: BoxDecoration(
-              border: Border.all(width: 1.0, color: Colors.white),
-              color: Colors.white,
+              border: Border.all(width: 1.0, color: isDarkMode ? Color.fromRGBO(1, 18, 28, 1) : Colors.white),
+              color: isDarkMode ? Color.fromRGBO(1, 18, 28, 1) : Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(5.0))),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                progressIndicator,
+                isDarkMode ? CircularProgressIndicator(color: Color.fromRGBO(237, 243, 247, 1)):CircularProgressIndicator(color: Color.fromRGBO(4, 75, 127, 1)),
                 SizedBox(width: 16),
                 Text("Loading...",
                     style: TextStyle(
-                        color: Colors.black,
+                        color: isDarkMode ? Colors.white : Colors.black,
                         fontSize: 16,
                         decoration: TextDecoration.none))
               ]),
